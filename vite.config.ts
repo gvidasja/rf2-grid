@@ -1,7 +1,7 @@
+import react from '@vitejs/plugin-react'
 import { rmSync } from 'fs'
 import { join } from 'path'
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 import electron from 'vite-plugin-electron'
 import pkg from './package.json'
 
@@ -12,7 +12,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': join(__dirname, 'src'),
-      'styles': join(__dirname, 'src/assets/styles'),
+      styles: join(__dirname, 'src/assets/styles'),
     },
   },
   plugins: [
@@ -37,7 +37,7 @@ export default defineConfig({
             // For debug
             sourcemap: 'inline',
             outDir: 'dist/electron/preload',
-          }
+          },
         },
       },
       // Enables use of Node.js API in the Electron-Renderer
@@ -47,5 +47,9 @@ export default defineConfig({
   server: {
     host: pkg.env.VITE_DEV_SERVER_HOST,
     port: pkg.env.VITE_DEV_SERVER_PORT,
+    proxy: {
+      '/rest': 'http://localhost:5397',
+      '/navigation': 'http://localhost:5397',
+    },
   },
 })
