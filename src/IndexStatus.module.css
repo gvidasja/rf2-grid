@@ -1,0 +1,32 @@
+.Info {
+  display: inline-block;
+  color: white;
+  background: black;
+  position: relative;
+  width: 1.5em;
+  height: 1.5em;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.Info .Tooltip {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: calc(100% + 0.5em);
+  text-align: initial;
+  background: black;
+  width: 300px;
+  min-width: auto;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+  padding: 6px;
+  border-radius: 6px;
+  transition: visibility 0.1s ease, opacity 0.1s ease;
+}
+
+.Info:hover .Tooltip {
+  opacity: 1;
+  visibility: visible;
+}

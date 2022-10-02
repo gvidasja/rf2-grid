@@ -4,7 +4,7 @@ import { useGameState } from './stateContext'
 
 const STATE_COLOR: Record<State, CSSProperties['background']> = {
   off: 'red',
-  menu: 'lighreen',
+  menu: 'lightgreen',
   loading: 'yellow',
   race: 'green',
 }
