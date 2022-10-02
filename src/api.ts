@@ -1,4 +1,8 @@
-const BASE_URL = ''
+const BASE_URL = import.meta.env.VITE_RF2_URL || ''
+
+export function getImageUrl(skinId: string): string {
+  return BASE_URL + `/rest/race/car/${skinId}/image?type=IMAGE_SMALL`
+}
 
 export async function getCars(): Promise<Car[]> {
   const skins = await get<CarDTO[]>('/rest/race/car')
@@ -26,7 +30,7 @@ export async function healthCheck(): Promise<State> {
   const timeout = setTimeout(() => ctrl.abort(), 500)
 
   try {
-    const r = await fetch('/navigation/state', { signal: ctrl.signal })
+    const r = await fetch(BASE_URL + '/navigation/state', { signal: ctrl.signal })
     clearTimeout(timeout)
 
     if (r.status >= 300) {

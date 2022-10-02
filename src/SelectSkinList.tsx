@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Car } from './api'
+import { Car, getImageUrl } from './api'
 import { List } from './CarRow'
 import { useCarsContext } from './carsContext'
 import { Modal } from './Modal'
@@ -53,10 +53,7 @@ export function SelectSkinList({
                 onSelectSkin(openCar.id, skin.name)
               }}
             >
-              <img
-                src={`/rest/race/car/${skin.id}/image?type=IMAGE_SMALL`}
-                className={styles.SkinThumbnailImage}
-              />
+              <img src={getImageUrl(skin.id)} className={styles.SkinThumbnailImage} />
               <div className={styles.SkinName}>{skin.name}</div>
             </div>
           ))}
