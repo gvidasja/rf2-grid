@@ -1,10 +1,13 @@
 import { useCallback, useState } from 'react'
 import { getFilterIndex } from './api'
 import { useCarsContext } from './carsContext'
+import { useGameState } from './stateContext'
 
 export function IndexStatus() {
   const { index, setIndex } = useCarsContext()
   const [progress, setProgress] = useState([0, 0])
+
+  const state = useGameState()
 
   const onResetIndex = useCallback(() => setIndex({}), [])
 
@@ -21,10 +24,10 @@ export function IndexStatus() {
           : `Rebuilding (${progress[0]} out of ${progress[1]})...`}
       </>
       <>Index is used for setting up grids. It has to be built once</>
-      <button disabled={!index} onClick={onRebuildIndex}>
+      <button disabled={!index || state !== 'menu'} onClick={onRebuildIndex}>
         Rebuild
       </button>
-      <button disabled={progress[0] !== progress[1]} onClick={onResetIndex}>
+      <button disabled={progress[0] !== progress[1] || state !== 'menu'} onClick={onResetIndex}>
         Reset
       </button>
     </>

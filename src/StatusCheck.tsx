@@ -1,17 +1,23 @@
-import { useEffect, useState } from 'react'
-import { healthCheck } from './api'
+import { CSSProperties } from 'react'
+import { State } from './api'
+import { useGameState } from './stateContext'
+
+const STATE_COLOR: Record<State, CSSProperties['background']> = {
+  off: 'red',
+  menu: 'lighreen',
+  loading: 'yellow',
+  race: 'green',
+}
+
+const STATE_MESSAGE: Record<State, string> = {
+  off: 'Please, launch rFactor 2',
+  menu: 'rFactor 2 running - menu',
+  loading: 'rFactor 2 running - loading race',
+  race: 'rFactor 2 running - race',
+}
 
 export function StatusCheck() {
-  const [alive, setAlive] = useState(false)
+  const state = useGameState()
 
-  useEffect(() => {
-    const i = setInterval(() => healthCheck().then(setAlive), 2000)
-    return () => clearInterval(i)
-  }, [])
-
-  return (
-    <div style={{ background: alive ? 'lightgreen' : 'red' }}>
-      {alive ? 'rFactor 2 running' : 'Please, Launch rFactor 2'}
-    </div>
-  )
+  return <div style={{ background: STATE_COLOR[state] }}>{STATE_MESSAGE[state]}</div>
 }
