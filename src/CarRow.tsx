@@ -3,7 +3,7 @@ import { Car } from './api'
 import styles from './App.module.scss'
 import { Modal } from './Modal'
 
-export function CarRow({ car, onAddSkin }: CarRowProps): JSX.Element {
+export function CarRow({ car, onSelectSkin }: CarRowProps): JSX.Element {
   const [showModal, setShowModal] = useState(false)
 
   return (
@@ -20,12 +20,13 @@ export function CarRow({ car, onAddSkin }: CarRowProps): JSX.Element {
             flexWrap: 'wrap',
           }}
         >
-          {car.skins.map(skin => (
+          {car.skins.map((skin, i) => (
             <div
+              key={i}
               className={styles.carThumbnail}
               onClick={e => {
                 e.stopPropagation()
-                onAddSkin(car.id, skin.name)
+                onSelectSkin(car.id, skin.name)
               }}
             >
               <img
@@ -42,5 +43,5 @@ export function CarRow({ car, onAddSkin }: CarRowProps): JSX.Element {
 }
 type CarRowProps = {
   car: Car
-  onAddSkin: (carId: string, skindName: string) => void
+  onSelectSkin: (carId: string, skindName: string) => void
 }

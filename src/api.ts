@@ -21,16 +21,34 @@ export async function getCars(): Promise<Car[]> {
     .sort(({ id: a }, { id: b }) => (a < b ? -1 : a > b ? 1 : 0))
 }
 
-export async function healthCheck(): Promise<boolean> {
+export async function healthCheck(): Promise<State> {
   const ctrl = new AbortController()
   const timeout = setTimeout(() => ctrl.abort(), 500)
 
   try {
     const r = await fetch('/navigation/state', { signal: ctrl.signal })
     clearTimeout(timeout)
-    return r.status < 300
+
+    if (r.status >= 300) {
+      return 'off'
+    }
+
+    const response: {
+      loadingStatus?: { loading: boolean }
+      state?: { navigationState: 'NAV_EVENT' }
+    } = await r.json()
+
+    if (response?.loadingStatus?.loading) {
+      return 'loading'
+    }
+
+    if (response?.state?.navigationState === 'NAV_EVENT') {
+      return 'race'
+    }
+
+    return 'menu'
   } catch {
-    return false
+    return 'off'
   }
 }
 
@@ -40,6 +58,10 @@ export async function setAiDriversToZero(): Promise<void> {
   while (opponents > 0) {
     opponents = await setParam('SESSSET_Num_Opponents', 0)
   }
+}
+
+export function startRace(): Promise<void> {
+  return postText('/rest/race/startRace', '')
 }
 
 async function getParam(param: string): Promise<number> {
@@ -146,3 +168,5 @@ interface OpponentFilter {
   gSelectedListIndex: number
   gVehFilterIndex: number
 }
+
+export type State = 'off' | 'menu' | 'loading' | 'race'
