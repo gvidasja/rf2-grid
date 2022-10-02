@@ -152,8 +152,9 @@ export interface Opponent {
   name: string
 }
 
+/** Maps skinName to filter ID */
 export type FilterIndex = {
-  [key: string]: number
+  [skingName: string]: number
 }
 
 interface CarDTO {

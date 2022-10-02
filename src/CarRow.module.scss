@@ -1,0 +1,14 @@
+.CarRow {
+  display: flex;
+  cursor: pointer;
+  font-size: 14px;
+  align-items: center;
+
+  &:hover {
+    background: lightblue;
+  }
+
+  & > :first-child {
+    flex-grow: 1;
+  }
+}

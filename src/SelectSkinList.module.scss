@@ -1,0 +1,34 @@
+.SelectSkinModal {
+  background: white;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 999;
+}
+
+.SkinThumbnail {
+  position: relative;
+  max-width: 300;
+  width: 25vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px;
+
+  &:hover {
+    border: rgb(61, 71, 100);
+  }
+}
+
+.SkinThumbnailImage {
+  object-fit: contain;
+  display: block;
+  max-width: 100%;
+}
+
+.SkinName {
+  position: absolute;
+  bottom: 0;
+}

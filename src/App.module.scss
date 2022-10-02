@@ -3,21 +3,6 @@
   width: 100%;
 }
 
-.carRow {
-  display: flex;
-  cursor: pointer;
-  font-size: 14px;
-  align-items: center;
-
-  &:hover {
-    background: lightblue;
-  }
-
-  & > :first-child {
-    flex-grow: 1;
-  }
-}
-
 .pill {
   display: flex;
   line-height: 1;
@@ -27,18 +12,4 @@
   font-size: 10px;
   color: white;
   border-radius: 2px;
-}
-
-.carThumbnail {
-  position: relative;
-  max-width: 300;
-  width: 25vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 18px;
-
-  &:hover {
-    border: rgb(61, 71, 100);
-  }
 }
